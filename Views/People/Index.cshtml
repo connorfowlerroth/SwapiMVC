@@ -1,0 +1,36 @@
+@model ResultsViewModel<PeopleViewModel>
+
+@{
+    ViewData["Title"] = "People";
+}
+
+<h1 class="text-center">People Index</h1>
+
+@if (Model.Results?.Count() > 0)
+{
+    <div class="d-flex-row flex-wrap">
+        @foreach (var person in Model.Results)
+        {
+            <div class="item-container">
+                <div class="item">
+                    <h4>@person.Name</h4>
+                    <div class="item-traits">
+                        <p>Mass: @person.Mass</p>
+                        <p>Height: @person.Height</p>
+                        <p>Born: @person.BirthYear</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div>
+        @if (Model.Previous is not null)
+        {
+            <a asp-action="Index" asp-route-page="@Model.PreviousPageNum">Previous</a>
+        }
+        @if (Model.Next is not null)
+        {
+            <a asp-action="Index" asp-route-page="@Model.NextPageNum">Next</a>
+        }
+    </div>
+}
